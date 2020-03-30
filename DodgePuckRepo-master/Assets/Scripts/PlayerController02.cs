@@ -8,13 +8,12 @@ public class PlayerController02 : MonoBehaviour
     public float xRange;
     public float yRange;
     public GameObject Puck;
-
+    public GameObject Blocky;
     // Start is called before the first frame update
     void Start()
     {
-        //Instantiate(Puck, new Vector2(Random.Range(-xRange, xRange), Random.Range(-yRange, yRange)), Quaternion.identity);
-        //Instantiate(Puck, new Vector2(Random.Range(-xRange, xRange), Random.Range(-yRange, yRange)), Quaternion.identity);
-        //Instantiate(Puck, new Vector2(Random.Range(-xRange, xRange), Random.Range(-yRange, yRange)), Quaternion.identity);
+        Instantiate(Blocky, new Vector2(Random.Range(-xRange, xRange), Random.Range(-yRange, yRange)), Quaternion.identity);
+       
     }
 
     //Keeps Player in the Room
@@ -46,7 +45,7 @@ public class PlayerController02 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Instantiate(Puck,new Vector2(Random.Range(-xRange,xRange), Random.Range(-yRange, yRange)), Quaternion.identity);
+        //Instantiate(Puck,new Vector2(Random.Range(-xRange,xRange), Random.Range(-yRange, yRange)), Quaternion.identity);
 
         //count how many enemies there are in the scene
         GameObject[] puckArray;
@@ -64,5 +63,14 @@ public class PlayerController02 : MonoBehaviour
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
         transform.Translate(movement * speed * Time.deltaTime);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Blocky"))
+        {
+            Destroy(other.gameObject);
+            Debug.Log("Hit Blocky");
+        }
     }
 }
